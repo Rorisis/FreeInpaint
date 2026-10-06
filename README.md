@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 ## Model weights
 
-Place the released [FreeInpaint weights](https://huggingface.co/jyproris/FreeInpaint/tree/main) at:
+Place the released [FreeInpaint weights](https://huggingface.co/jyproris/FreeInpaint/tree/main/checkpoints) at:
 
 ```text
 checkpoints/freeinpaint.pth
@@ -105,7 +105,7 @@ CUDA_VISIBLE_DEVICES=0 python test.py --dataset co3d \
   --num_input_views 8 --negative_prompt cup --save_gs
 
 # Batch examples (edit the scene lists in the respective scripts)
-CUDA_VISIBLE_DEVICES=0 bash scripts/test_gs25.sh --data_root '/path/to/gs25'
+CUDA_VISIBLE_DEVICES=0 bash scripts/test_gs25.sh --data_root /path/to/gs25
 CUDA_VISIBLE_DEVICES=0 bash scripts/test_co3d.sh --data_root /path/to/co3d
 ```
 
@@ -116,8 +116,8 @@ Omit `--save_gs` if Gaussian export is not needed.
 Outputs go to `results/<dataset>/<scene>/<task>/` (CO3D includes category/sequence):
 
 - `{id}.png`, `{id}_gt.png`, `{id}_gt_mask.png`, and `{id}_depth.npy`.
-- `reference.png`, generated `support_*.png`, `refinement.json`, and `predicted_cameras.npz`. Input-view copies are not saved.
-- `result.json` records only the dataset/scene, completion status, clean-GT availability, and any failure message; detailed run metadata is not saved.
+- `reference.png`, generated `support_*.png`, `refinement.json`, and `predicted_cameras.npz`.
+- `result.json` records the dataset/scene, completion status, clean-GT availability, and any failure message; 
 - `--save_gs` exports `gaussians.ply`; `--render_video` exports `video.mp4`.
 
 ## Evaluation
