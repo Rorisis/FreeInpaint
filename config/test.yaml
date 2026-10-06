@@ -1,0 +1,62 @@
+experiment:
+  output_dir: results
+  seed: 42
+model:
+  backbone: da3-giant
+  checkpoint: checkpoints/freeinpaint.pth
+learnable_mask:
+  hidden_dim: 8
+  alpha: 1.5
+  beta: 10.0
+  epsilon: 0.02
+refinement:
+  num_forward_passes: 3
+  opacity_threshold: 0.98
+reference:
+  cache_dir: cache/reference
+diffusion:
+  checkpoint_dir: checkpoints/ppt-v1
+spinnerf_dataset:
+  num_forward_passes: 1
+  root: data/spinnerf_dataset_processed
+  H: 280
+  W: 504
+  context_json: config/spinnerf.json
+  mask_dilation_kernel: 25
+  ref_view_strategy: default
+usid_dataset:
+  root: data/360-USID
+  H: 378
+  W: 504
+  mask_dilation_kernel: 25
+  ref_view_strategy: first
+gs25_dataset:
+  root: data/gs25
+  H: 280
+  W: 504
+  num_input_views: 8
+  mask_dilation_kernel: 15
+  ref_view_strategy: default
+co3d_dataset:
+  root: data/co3d
+  H: 280
+  W: 504
+  num_input_views: 8
+  mask_dilation_kernel: 15
+  ref_view_strategy: default
+dl3dv_dataset:
+  root: data/DL3DV-10K
+  H: 280
+  W: 504
+  num_input_views: 4
+  mask_dilation_kernel: 15
+  ref_view_strategy: default
+metrics:
+  resize_width: 504
+  resize_height: 280
+  min_crop_size:
+    spinnerf: 1
+    usid: 32
+  kid_subset_size: 1000
+  kid_subsets: 100
+  seed: 42
