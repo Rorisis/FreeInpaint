@@ -1,0 +1,24 @@
+.cloud-section { margin: 48px auto; max-width: 1100px; }
+.cloud-scenes { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 20px auto; }
+.cloud-scenes button { font: inherit; font-size: 14px; border: 1px solid var(--line); border-radius: 999px; padding: 7px 17px; color: var(--indigo); background: white; cursor: pointer; }
+.cloud-scenes button[aria-pressed="true"] { color: white; background: var(--navy); border-color: var(--navy); }
+.cloud-row { display: grid; grid-template-columns: minmax(160px, .6fr) 1fr 1fr; gap: 16px; align-items: start; }
+.cloud-panel { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: white; min-width: 0; }
+.cloud-panel h4 { margin: 14px 8px; text-align: center; color: var(--navy); font-size: 14px; font-weight: 600; }
+.cloud-panel h4 small { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; font-weight: 400; }
+.cloud-canvas { display: block; width: 100%; aspect-ratio: 1; touch-action: none; cursor: grab; background: #f5f7fb; }
+.cloud-canvas:active { cursor: grabbing; }
+.cloud-canvas:focus-visible, .cloud-scenes button:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; }
+.cloud-meta { font-size: 12px; padding: 10px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; }
+.cloud-meta a { color: var(--blue); }
+.cloud-cover { width: 100%; display: block; aspect-ratio: 1.8; object-fit: contain; background: var(--wash); }
+.cloud-inputs summary { font-size: 13px; padding: 12px; color: var(--indigo); cursor: pointer; }
+.cloud-input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; }
+.cloud-input-grid figure { margin: 0; }
+.cloud-input-grid img { width: 100%; border-radius: 4px; display: block; }
+.cloud-input-grid figcaption { font-size: 10px; text-align: center; color: var(--muted); margin-top: 3px; }
+.cloud-controls { display: flex; justify-content: center; gap: 18px; align-items: center; flex-wrap: wrap; margin-top: 14px; color: var(--muted); font-size: 12px; }
+.cloud-controls button { font: inherit; padding: 5px 12px; border: 1px solid var(--line); border-radius: 6px; background: white; color: var(--navy); cursor: pointer; }
+.cloud-controls label { display: flex; align-items: center; gap: 8px; }
+.cloud-status, .cloud-note { font-size: 12px; text-align: center; color: var(--muted); margin: 12px auto; max-width: 850px; }
+@media(max-width: 700px) { .cloud-row { grid-template-columns: 1fr 1fr; gap: 10px; } .cloud-inputs { grid-column: 1 / -1; } .cloud-cover { max-height: 140px; } .cloud-input-grid { grid-template-columns: repeat(4, 1fr); } .cloud-panel h4 { font-size: 12px; } }

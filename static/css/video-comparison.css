@@ -1,0 +1,28 @@
+.wipe-labels { display: flex; justify-content: space-between; padding: 0 4px 10px; color: var(--muted); font-size: 13px; font-weight: 600; }
+.wipe-labels span:last-child { color: var(--blue); }
+.wipe-stack { position: relative; --split: 50%; touch-action: pan-y; }
+.wipe-pair { position: relative; aspect-ratio: 1.8; overflow: hidden; border-radius: 6px; background: var(--wash); }
+.wipe-pair + .wipe-pair { margin-top: 8px; }
+.wipe-pair video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+.wipe-pair .wipe-right { clip-path: inset(0 0 0 var(--split)); }
+.wipe-line { position: absolute; top: 0; bottom: 0; left: var(--split); width: 2px; background: white; box-shadow: 0 0 0 1px #11306655; pointer-events: none; z-index: 11; transform: translateX(-1px); }
+.wipe-line::after { content: '↔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 32px; height: 42px; border-radius: 20px; border: 2px solid white; background: var(--navy); color: white; font: 20px Arial, sans-serif; box-shadow: 0 2px 8px #11306633; }
+.wipe-range { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; margin: 0; cursor: ew-resize; z-index: 12; touch-action: pan-y; }
+.wipe-stack:focus-within .wipe-line::after { outline: 3px solid var(--blue); outline-offset: 3px; }
+.wipe-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; }
+.wipe-play { font: inherit; font-size: 12px; color: var(--navy); background: white; border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+.wipe-hint { font-size: 12px; color: var(--muted); }
+.wipe-status { margin-top: 8px; color: var(--muted); font-size: 12px; }
+.comparison-preview-note, .cloud-example-badge { width: fit-content; max-width: 100%; margin: 16px auto 24px; padding: 12px 20px; border: 1px solid #b7cbed; border-radius: 10px; background: var(--wash); color: var(--blue); font-family: inherit; font-size: 15px; font-weight: 500; line-height: 1.6; text-align: center; }
+@media (max-width: 480px) { .wipe-line::after { width: 28px; height: 36px; } }
+.video-comparison-row.removal-gallery { display: block; width: 100%; max-width: 940px; margin: 0 auto; }
+.removal-gallery .video-card { width: 100%; max-width: 100%; box-sizing: border-box; padding: 18px; }
+.removal-gallery [hidden] { display: none !important; }
+.removal-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.removal-columns > div { min-width: 0; }
+.removal-original .wipe-pair:last-child { margin-top: 8px; }
+.removal-scenes, #baselineTabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 20px auto; }
+.removal-scenes button, #baselineTabs .scene-tab-btn { font: inherit; font-size: 14px; border: 1px solid var(--line); border-radius: 999px; background: white; padding: 7px 17px; color: var(--indigo); cursor: pointer; text-transform: capitalize; transition: background .2s, border-color .2s; }
+.removal-scenes button:hover, #baselineTabs .scene-tab-btn:hover { background: var(--wash); border-color: var(--blue); }
+.removal-scenes button[aria-pressed="true"], #baselineTabs .scene-tab-btn.active { background: var(--navy); border-color: var(--navy); color: white; }
+@media (max-width: 600px) { .removal-columns { grid-template-columns: 1fr; gap: 18px; } .removal-gallery .video-card { padding: 12px; } }

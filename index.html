@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeInpaint | Pose-Free Feed-Forward 3D Inpainting</title>
+    <meta name="description" content="FreeInpaint: pose-free feed-forward 3D inpainting with Learnable Mask Attention and Support Token Refinement.">
+    <meta name="theme-color" content="#113066">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/images/freeinpaint-icon-32.png">
+    <link rel="icon" type="image/svg+xml" href="static/images/freeinpaint-logo.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="static/images/freeinpaint-icon-180.png">
+    <link rel="stylesheet" href="static/css/video-comparison.css">
+    <script src="static/js/video-comparison.js" defer></script>
+    <link rel="stylesheet" href="static/css/pointcloud-comparison.css">
+    <script src="static/js/pointcloud-comparison.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,700|Noto+Sans:400,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/page.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="project-name">Free<span class="accent">Inpaint</span></div>
+            <h1>
+                <span class="title-line">Pose-Free Feed-Forward 3D Inpainting</span>
+                <span class="title-line">via Learnable Mask Attention and Support Token Refinement</span>
+            </h1>
+            <div class="venue">NeurIPS 2026</div>
+            <div class="publication-authors">
+                <span class="author-block"><a href="https://rorisis.github.io/" target="_blank" rel="noopener noreferrer">Jingyi Pan</a><sup>1</sup></span>
+                <span class="author-block"><a href="https://www.danxurgb.net/" target="_blank" rel="noopener noreferrer">Dan Xu</a><sup>2,*</sup></span>
+                <span class="author-block"><a href="https://www.cse.ust.hk/~luo/" target="_blank" rel="noopener noreferrer">Qiong Luo</a><sup>1,2,*</sup></span>
+            </div>
+            <div class="publication-authors affiliations">
+                <span class="author-block"><sup>1</sup>DSA, HKUST(GZ)</span>
+                <span class="author-block"><sup>2</sup>CSE, HKUST</span>
+            </div>
+            <div class="eql-cntrb"><sup>*</sup>Corresponding authors</div>
+            <nav class="publication-links" aria-label="Publication resources">
+                <!-- Replace these disabled placeholders with <a href="..."> when the paper is public. -->
+                <span class="resource-link primary" role="link" aria-disabled="true" title="Paper — coming soon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8Z"/><path d="M14 3v5h5M8 12h8M8 16h6"/></svg>
+                    <span>Paper</span>
+                </span>
+                <span class="resource-link" role="link" aria-disabled="true" title="arXiv — coming soon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 3 14 18M19 3l-6 8M11 14l-6 7"/><path d="m7 3 12 16" opacity=".45"/></svg>
+                    <span>arXiv</span>
+                </span>
+                <a class="resource-link" href="https://github.com/Rorisis/FreeInpaint" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.72.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.24 1.16-3.03-.12-.28-.5-1.43.11-2.99 0 0 .95-.3 3.09 1.16a10.76 10.76 0 0 1 5.62 0c2.15-1.46 3.09-1.16 3.09-1.16.61 1.56.23 2.71.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.32-2.63 5.27-5.14 5.55.4.35.76 1.04.76 2.1v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/></svg>
+                    <span>Code</span>
+                </a>
+            </nav>
+            <p class="resource-note">Paper &amp; arXiv coming soon.</p>
+        </header>
+
+        <main class="content">
+
+            <section class="section teaser-video" aria-label="FreeInpaint comparison teaser">
+                <video controls autoplay muted loop playsinline preload="metadata" poster="static/images/teaser-poster.jpg" aria-label="Four-scene comparison of InstaInpaint and pose-free FreeInpaint">
+                    <source src="static/videos/freeinpaint-teaser.mp4" type="video/mp4">
+                    Your browser does not support embedded video.
+                </video>
+            </section>
+
+            <div class="section">
+                <h2 class="section-title">Overview</h2>
+                <div class="demo-container">
+                    <img src="static/images/teaser.png" alt="Teaser">
+                    <p class="image-caption">
+                        FreeInpaint takes a single reference image and multiple unposed masked source images as inputs. It jointly estimates the camera parameters and reconstructs a high-fidelity, multi-view consistent 3D Gaussian field.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Method</h2>
+                <div class="demo-container">
+                    <img src="static/images/overview.png" alt="FreeInpaint Pipeline Overview">
+                    <p class="image-caption">
+                        The Pipeline of FreeInpaint. Our framework adapts DA3 for pose-free 3D inpainting by introducing Learnable Mask Attention, which prevents masked regions from corrupting both pose and geometry estimation. Additionally, we propose an inference-time Support Token Refinement strategy to progressively inpaint content in occluded blind spots lacking visual cues, while fine-tuning the DPT heads to adapt the model for inpainting tasks.
+                    </p>
+                </div>
+            </div>
+
+            <section class="section results-section" id="results" aria-labelledby="results-title">
+                <h2 class="section-title" id="results-title">More Results</h2>
+                <h3 class="subsection-title">Object Removal</h3>
+                <div class="comparison-section">
+                <div class="vis-intro">
+                    <p>Qualitative comparison with state-of-the-art 3D inpainting methods. FreeInpaint takes 1 unposed reference image and 3 unposed masked images as input.</p>
+                </div>
+
+                <div class="scene-nav-tabs" id="baselineTabs">
+                </div>
+
+                <div class="method-grid">
+                    <div class="method-card">
+                        <div class="method-name">Original</div>
+                        <div class="method-video-container">
+                            <video id="vid-original" loop playsinline autoplay muted></video>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-name">GScream <span class="time-badge">~2h</span></div>
+                        <div class="method-video-container">
+                            <video id="vid-gscream" loop playsinline autoplay muted></video>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-name">InFusion <span class="time-badge">~30m</span></div>
+                        <div class="method-video-container">
+                            <video id="vid-infusion" loop playsinline autoplay muted></video>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-name ours">Ours (FreeInpaint) <span class="time-badge fast">0.4s</span></div>
+                        <div class="method-video-container">
+                            <video id="vid-ours" loop playsinline autoplay muted></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="section-divider results-divider">
+
+            <div class="results-examples">
+                <div class="vis-intro">
+                    <p>Compare InstaInpaint and FreeInpaint using the same inputs and shared camera trajectories. Select a scene, then drag the divider to explore.</p>
+                </div>
+
+                <div class="video-comparison-row">
+                    <div class="video-card" data-comparison-scene="plant">
+                        <div class="scene-name-header">Plant</div>
+                        <div class="stacked-videos">
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">RGB</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/plant_rgb_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/plant_rgb_ours.mp4"></video>
+                                </div>
+                            </div>
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">Depth</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/plant_depth_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/plant_depth_ours.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-labels-row">
+                            <span class="video-label">original</span>
+                            <span class="video-label ours">ours</span>
+                        </div>
+                    </div>
+            
+                    <div class="video-card" data-comparison-scene="skateboard">
+                        <div class="scene-name-header">Skateboard</div>
+                        <div class="stacked-videos">
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">RGB</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/skateboard_rgb_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/skateboard_rgb_ours.mp4"></video>
+                                </div>
+                            </div>
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">Depth</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/skateboard_depth_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/skateboard_depth_ours.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-labels-row">
+                            <span class="video-label">original</span>
+                            <span class="video-label ours">ours</span>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card" data-comparison-scene="bucket">
+                        <div class="scene-name-header">Bucket</div>
+                        <div class="stacked-videos">
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">RGB</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/bucket_rgb_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/bucket_rgb_ours.mp4"></video>
+                                </div>
+                            </div>
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">Depth</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/bucket_depth_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/bucket_depth_ours.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-labels-row">
+                            <span class="video-label">original</span>
+                            <span class="video-label ours">ours</span>
+                        </div>
+                    </div>
+            
+                    <div class="video-card" data-comparison-scene="flowerbed2">
+                        <div class="scene-name-header">Flowerbed2</div>
+                        <div class="stacked-videos">
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">RGB</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/flowerbed2_rgb_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/flowerbed2_rgb_ours.mp4"></video>
+                                </div>
+                            </div>
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">Depth</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/flowerbed2_depth_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/flowerbed2_depth_ours.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-labels-row">
+                            <span class="video-label">original</span>
+                            <span class="video-label ours">ours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <section id="wild-clouds" class="cloud-section" aria-label="In-the-wild interactive point clouds"></section>
+
+                <hr class="section-divider">
+
+                <h3 class="subsection-title">Object Replacement</h3>
+                <div class="vis-intro">
+                    <p>Our FreeInpaint also enables the high-fidelity replacement of specific objects.</p>
+                </div>
+
+                <div class="video-comparison-row replacement-row">
+                    <div class="video-card">
+                        <div class="scene-name-header">Book ➔ Vase</div>
+                        <div class="stacked-videos">
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">RGB</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/book_rgb_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/book_rgb_ours.mp4"></video>
+                                </div>
+                            </div>
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">Depth</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/book_depth_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/book_depth_ours.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-labels-row">
+                            <span class="video-label">original</span>
+                            <span class="video-label ours">ours</span>
+                        </div>
+                    </div>
+            
+                    <div class="video-card">
+                        <div class="scene-name-header">Watering Can ➔ Cake</div>
+                        <div class="stacked-videos">
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">RGB</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/10_rgb_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/10_rgb_ours.mp4"></video>
+                                </div>
+                            </div>
+                            <div class="dual-video-container">
+                                <div class="video-wrapper">
+                                    <div class="row-label">Depth</div>
+                                    <video loop playsinline autoplay muted src="./static/videos/10_depth_ori.mp4"></video>
+                                </div>
+                                <div class="video-wrapper">
+                                    <video loop playsinline autoplay muted src="./static/videos/10_depth_ours.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-labels-row">
+                            <span class="video-label">original</span>
+                            <span class="video-label ours">ours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+            <section class="section" id="bibtex" aria-labelledby="bibtex-title">
+                <h2 class="section-title" id="bibtex-title">BibTeX</h2>
+                <pre class="bibtex-block"><code>@inproceedings{pan2026pose,
+  title     = {Pose-Free Feed-Forward 3D Inpainting via Learnable Mask Attention and Support Token Refinement},
+  author    = {Pan, Jingyi and Xu, Dan and Luo, Qiong},
+  booktitle = {The Fortieth Annual Conference on Neural Information Processing Systems},
+  year      = {2026}
+}</code></pre>
+            </section>
+        </main>
+        <footer class="page-footer"><span>FreeInpaint</span></footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ==========================================
+            // 1. 视频强制同步引擎 (Video Sync Engine)
+            // ==========================================
+            function syncVideoGroup(videos) {
+                if (!videos || videos.length < 2) return;
+                const leader = videos[0]; // 选第一个视频当老大
+                const followers = videos.slice(1); // 其他的当小弟
+
+                // 老大播放，小弟跟着播放
+                leader.addEventListener('play', () => followers.forEach(v => v.play().catch(()=>{})));
+                // 老大暂停，小弟跟着暂停
+                leader.addEventListener('pause', () => followers.forEach(v => v.pause()));
+                // 老大拖拽进度条，小弟跟着跳跃
+                leader.addEventListener('seeking', () => {
+                    followers.forEach(v => v.currentTime = leader.currentTime);
+                });
+                // 核心：老大播放过程中，持续监工小弟的进度
+                leader.addEventListener('timeupdate', () => {
+                    followers.forEach(v => {
+                        // 如果小弟的时间和老大相差超过 0.1 秒，强制拉回同步！
+                        if (Math.abs(v.currentTime - leader.currentTime) > 0.1) {
+                            v.currentTime = leader.currentTime;
+                        }
+                    });
+                });
+            }
+
+            // 启用 Baseline 4个视频的同步
+            const baselineVideos = Array.from(document.querySelectorAll('.method-grid video'));
+            syncVideoGroup(baselineVideos);
+
+            // 启用 More Results 中，每个卡片内部 4 个视频 (RGB 和 Depth) 的绝对同步
+            document.querySelectorAll('.video-card').forEach(card => {
+                const cardVideos = Array.from(card.querySelectorAll('video'));
+                syncVideoGroup(cardVideos);
+            });
+
+
+            // ==========================================
+            // 2. Baseline Comparisons 切换逻辑
+            // ==========================================
+            const videoData = {
+                "Corner": {
+                    original: "./static/videos/9_ori.mp4",
+                    gscream: "./static/videos/9_gscream.mp4",
+                    infusion: "./static/videos/9_infusion.mp4",
+                    ours: "./static/videos/9_ours.mp4"
+                },
+                "Grass": {
+                    original: "./static/videos/7_ori.mp4",
+                    gscream: "./static/videos/7_gscream.mp4",
+                    infusion: "./static/videos/7_infusion.mp4",
+                    ours: "./static/videos/7_ours.mp4"
+                },
+                "trash": {
+                    original: "./static/videos/trash_ori.mp4",
+                    gscream: "./static/videos/trash_gscream.mp4",
+                    infusion: "./static/videos/trash_infusion.mp4",
+                    ours: "./static/videos/trash_ours.mp4"
+                },
+            };
+
+            const tabsContainer = document.getElementById('baselineTabs');
+            const vids = {
+                original: document.getElementById('vid-original'),
+                gscream: document.getElementById('vid-gscream'),
+                infusion: document.getElementById('vid-infusion'),
+                ours: document.getElementById('vid-ours')
+            };
+
+            let isFirst = true;
+            for (const scene in videoData) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'scene-tab-btn';
+                if (isFirst) btn.classList.add('active');
+                btn.setAttribute('aria-pressed', String(isFirst));
+                btn.textContent = scene;
+                
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.scene-tab-btn').forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-pressed', 'true');
+                    changeVideos(scene);
+                });
+                
+                tabsContainer.appendChild(btn);
+                isFirst = false;
+            }
+
+            function changeVideos(sceneName) {
+                const paths = videoData[sceneName];
+                for (const method in vids) {
+                    vids[method].src = paths[method];
+                    vids[method].load();
+                    vids[method].play().catch(e => console.log("Autoplay prevented:", e));
+                }
+            }
+
+            const firstScene = Object.keys(videoData)[0];
+            if(firstScene) changeVideos(firstScene);
+        });
+    </script>
+</body>
+</html>
