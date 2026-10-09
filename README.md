@@ -9,6 +9,8 @@
 > NeurIPS 2026
 > 
 
+[arXiv](https://arxiv.org/abs/2610.11857) | [PDF](https://arxiv.org/pdf/2610.11857) | [Project Page](https://rorisis.github.io/FreeInpaint/)
+
 <div align=center>
 <img src="assets/overview.png" width="100%"/>
 </div>
